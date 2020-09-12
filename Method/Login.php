@@ -51,12 +51,16 @@ final class Login extends DOG_Command
             return $message->rply('err_login_blocked', [$wait]);
         }
         
-        $this->attempts[$dog_user->getID()] = $time;
-        
         
         if ($gdo_user->getValue('user_password')->validate($password))
         {
-            
+            $dog_user->login();
+            $message->rply('msg_dog_authenticated');
+        }
+        else
+        {
+            $this->attempts[$dog_user->getID()] = $time;
+            $message->rply('err_dog_authenticate');
         }
     }
     
