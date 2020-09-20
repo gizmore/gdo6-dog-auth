@@ -55,6 +55,7 @@ final class Super extends DOG_Command
         {
             GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
         }
+        $message->user->getGDOUser()->changedPermissions();
         
         return $message->rply('msg_dog_super_granted');
     }

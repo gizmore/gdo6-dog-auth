@@ -42,12 +42,18 @@ final class Login extends DOG_Command
             return $message->rply('err_not_registered');
         }
         
-        $time = microtime(true);
-        $last = isset($this->attempts[$dog_user->getID()]) ? $this->attempts[$dog_user->getID()] : $time;
-        $wait = $time - $last;
-        if ($wait < 10)
+        if ($dog_user->isAuthenticated())
         {
-            $wait = 10 - $wait;
+            return $message->rply('err_already_authed');
+        }
+        
+        $time = microtime(true);
+        $last = isset($this->attempts[$dog_user->getID()]) ? $this->attempts[$dog_user->getID()] : 0;
+        $wait = $time - $last;
+        $minwait = $this->getTimeout();
+        if ($wait < $minwait)
+        {
+            $wait = $minwait - $wait;
             return $message->rply('err_login_blocked', [$wait]);
         }
         
