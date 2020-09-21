@@ -1,6 +1,7 @@
 <?php
 namespace GDO\DogAuth\Method;
 
+use GDO\Core\Application;
 use GDO\Dog\DOG_Command;
 use GDO\Dog\DOG_Message;
 use GDO\User\GDT_Password;
@@ -8,8 +9,12 @@ use GDO\Date\GDT_Duration;
 
 final class Login extends DOG_Command
 {
+    public $priority = 10;
+    
     public $group = 'Auth';
     public $trigger = 'login';
+    
+    public function isRoomMethod() { return false; }
     
     private $attempts = [];
     
@@ -47,7 +52,7 @@ final class Login extends DOG_Command
             return $message->rply('err_already_authed');
         }
         
-        $time = microtime(true);
+        $time = Application::$MICROTIME;
         $last = isset($this->attempts[$dog_user->getID()]) ? $this->attempts[$dog_user->getID()] : 0;
         $wait = $time - $last;
         $minwait = $this->getTimeout();

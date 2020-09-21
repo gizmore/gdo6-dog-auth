@@ -19,10 +19,15 @@ return array(
 
 'dog_help_grant' => 'Show the permissions for a user.',
 'msg_dog_show_permissions' => '%s has the following permissions: %s.',
-'msg_dog_grant' => '%s got granted the %s permission.',
 'err_dog_grant' => 'You do need higher or equal permissions than %s to do that.',
+'err_grant_permission' => 'You need the %s permission yourself to grant it.',
+'err_grant_already_permission' => '%s already has the %s permission.',
+'msg_dog_granted_permission' => 'You granted the %s permission to %s.',
     
 'dog_help_revoke' => 'Revoke a permission for a user',
-'msg_dog_revoke' => '%s got revoked the %s permission.',
-'err_dog_revoke' => 'You do need higher permissions than %s to do that.',
+'err_dog_revoke_permission' => 'You need the %s permission to revoke %s permissions.',
+'msg_dog_revoked_permission' => 'You revoked the %s permissions for %s.',
+'err_dog_revoke_level' => 'Your permissions are not high enough revoke these permissions that.',
+'err_revoke_unchanged' => 'Nothing has changed.',
+    
 );

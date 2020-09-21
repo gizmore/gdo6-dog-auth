@@ -2,6 +2,7 @@
 namespace GDO\DogAuth\Method;
 
 use GDO\Dog\DOG_Command;
+use GDO\Core\Application;
 use GDO\Core\GDT_Secret;
 use GDO\Dog\DOG_Message;
 use GDO\Date\GDT_Duration;
@@ -14,13 +15,15 @@ use GDO\User\GDO_UserPermission;
  */
 final class Super extends DOG_Command
 {
+    public $priority = 50;
+    
     public $group = 'Auth';
     public $trigger = 'super';
     
     private $attempts = [];
     
     public function isUserRequired() { return true; }
-    public function isPrivateMethod() { return true; }
+    public function isRoomMethod() { return false; }
     
     public function getConfigBot()
     {
@@ -46,7 +49,7 @@ final class Super extends DOG_Command
         
         if ($password !== $this->getConfigValueBot('super_password'))
         {
-            $this->attempts[$message->user->getID()] = microtime(true);
+            $this->attempts[$message->user->getID()] = Application::$MICROTIME;
             return $message->rply('err_dog_superword');
         }
         
@@ -62,7 +65,7 @@ final class Super extends DOG_Command
     
     private function bruteforce(DOG_Message $message)
     {
-        $time = microtime(true);
+        $time = Application::$MICROTIME;
         $old = isset($this->attempts[$message->user->getID()]) ? $this->attempts[$message->user->getID()] : 0;
         $waited = $time - $old;
         $timeout = $this->getConfigValueBot('super_timeout');

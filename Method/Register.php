@@ -8,8 +8,11 @@ use GDO\Util\BCrypt;
 
 final class Register extends DOG_Command
 {
+    public $priority = 20;
     public $group = 'Auth';
     public $trigger = 'register';
+    
+    public function isRoomMethod() { return false; }
     
     public function gdoParameters()
     {
