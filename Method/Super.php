@@ -32,6 +32,13 @@ final class Super extends DOG_Command
             GDT_Duration::make('super_timeout')->notNull()->initial('10'),
         );
     }
+
+    public function getConfigServer()
+    {
+        return array(
+            GDT_Secret::make('super_password'),
+        );
+    }
     
     public function gdoParameters()
     {
@@ -47,20 +54,33 @@ final class Super extends DOG_Command
             return $message->rply('err_dog_bruteforce', [$wait]);
         }
         
-        if ($password !== $this->getConfigValueBot('super_password'))
+        if ($password === $this->getConfigValueBot('super_password'))
+        {
+            $permissions = array(Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR, Dog::OWNER);
+            foreach ($permissions as $permission)
+            {
+                GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
+            }
+            $message->user->getGDOUser()->changedPermissions();
+            return $message->rply('msg_dog_super_granted');
+        }
+        
+        elseif ($password === $this->getConfigValueServer($message->server, 'super_password'))
+        {
+            $permissions = array(Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR);
+            foreach ($permissions as $permission)
+            {
+                GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
+            }
+            $message->user->getGDOUser()->changedPermissions();
+            return $message->rply('msg_dog_operator_granted');
+        }
+        
+        else
         {
             $this->attempts[$message->user->getID()] = Application::$MICROTIME;
             return $message->rply('err_dog_superword');
         }
-        
-        $permissions = array(Dog::VOICE, Dog::HALFOP, Dog::OPERATOR, Dog::OWNER);
-        foreach ($permissions as $permission)
-        {
-            GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
-        }
-        $message->user->getGDOUser()->changedPermissions();
-        
-        return $message->rply('msg_dog_super_granted');
     }
     
     private function bruteforce(DOG_Message $message)

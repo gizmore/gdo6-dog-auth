@@ -10,6 +10,7 @@ return array(
 'dog_help_super' => 'If you know the super secret password you get granted all permissions on this server.',
 'err_dog_superword' => 'The password is wrong!',
 'msg_dog_super_granted' => 'You were now granted all permissions on this server.',
+'msg_dog_operator_granted' => 'You were granted operator permissions on this server.',
     
 'dog_help_register' => 'Register your account with #BOT#. Provide your old and new password to change it.',
 'err_dog_already_registered' => 'You are already registered. You can change your password with #CMD#register <oldPass> <newPass>.',
