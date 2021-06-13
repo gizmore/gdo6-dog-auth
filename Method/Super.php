@@ -2,35 +2,38 @@
 namespace GDO\DogAuth\Method;
 
 use GDO\Dog\DOG_Command;
-use GDO\Core\Application;
 use GDO\Core\GDT_Secret;
 use GDO\Dog\DOG_Message;
 use GDO\Date\GDT_Duration;
 use GDO\Dog\Dog;
 use GDO\User\GDO_UserPermission;
+use GDO\Dog\WithBruteforceProtection;
 
 /**
  * Grant all permissions to a user.
  * @author gizmore
+ * @version 6.10.4
+ * @since 6.10.0
  */
 final class Super extends DOG_Command
 {
+    use WithBruteforceProtection;
+    
     public $priority = 50;
     
-    public $group = 'Auth';
     public $trigger = 'super';
     
-    private $attempts = [];
-    
+    public function isAuthRequired() { return true; }
     public function isUserRequired() { return true; }
     public function isRoomMethod() { return false; }
     
     public function getConfigBot()
     {
-        return array(
-            GDT_Secret::make('super_password')->notNull()->initial('supergizmore'),
-            GDT_Duration::make('super_timeout')->notNull()->initial('10'),
-        );
+        return [
+            GDT_Duration::make('timeout')->initial('10'),
+            GDT_Secret::make('super_password')->notNull()->initial('supergiz'),
+            GDT_Secret::make('super_admin_password')->notNull()->initial('supergizmore'),
+        ];
     }
 
     public function getConfigServer()
@@ -49,12 +52,23 @@ final class Super extends DOG_Command
     
     public function dogExecute(DOG_Message $message, $password)
     {
-        if ($wait = $this->bruteforce($message))
+        if ($this->isBruteforcing($message))
         {
-            return $message->rply('err_dog_bruteforce', [$wait]);
+            return false;
+        }
+      
+        if ($password === $this->getConfigValueBot('super_admin_password'))
+        {
+            $permissions = array(Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR, Dog::OWNER, Dog::ADMIN);
+            foreach ($permissions as $permission)
+            {
+                GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
+            }
+            $message->user->getGDOUser()->changedPermissions();
+            return $message->rply('msg_dog_super_granted');
         }
         
-        if ($password === $this->getConfigValueBot('super_password'))
+        elseif ($password === $this->getConfigValueBot('super_password'))
         {
             $permissions = array(Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR, Dog::OWNER);
             foreach ($permissions as $permission)
@@ -78,21 +92,8 @@ final class Super extends DOG_Command
         
         else
         {
-            $this->attempts[$message->user->getID()] = Application::$MICROTIME;
             return $message->rply('err_dog_superword');
         }
     }
     
-    private function bruteforce(DOG_Message $message)
-    {
-        $time = Application::$MICROTIME;
-        $old = isset($this->attempts[$message->user->getID()]) ? $this->attempts[$message->user->getID()] : 0;
-        $waited = $time - $old;
-        $timeout = $this->getConfigValueBot('super_timeout');
-        if ($waited < $timeout)
-        {
-            return $timeout - $waited;
-        }
-        return 0;
-    }
 }

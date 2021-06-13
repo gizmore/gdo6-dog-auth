@@ -7,7 +7,7 @@ return array(
 'err_dog_authenticate' => 'The password was wrong.',
 'msg_dog_authenticated' => 'Welcome back! You are now authenticated.',
     
-'dog_help_super' => 'If you know the super secret password you get granted all permissions on this server.',
+'ft_dogauth_super' => 'If you know the super secret password you get granted all permissions on this server.',
 'err_dog_superword' => 'The password is wrong!',
 'msg_dog_super_granted' => 'You were now granted all permissions on this server.',
 'msg_dog_operator_granted' => 'You were granted operator permissions on this server.',
@@ -30,5 +30,7 @@ return array(
 'msg_dog_revoked_permission' => 'You revoked the %s permissions for %s.',
 'err_dog_revoke_level' => 'Your permissions are not high enough revoke these permissions that.',
 'err_revoke_unchanged' => 'Nothing has changed.',
-    
+
+'err_dog_not_authenticated' => 'You are not authenticated with #BOT#.',
+'msg_dog_logged_out' => 'You are now logged out.',    
 );

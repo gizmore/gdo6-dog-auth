@@ -1,40 +1,30 @@
 <?php
 namespace GDO\DogAuth\Method;
 
-use GDO\Core\Application;
 use GDO\Dog\DOG_Command;
 use GDO\Dog\DOG_Message;
 use GDO\User\GDT_Password;
-use GDO\Date\GDT_Duration;
+use GDO\Dog\WithBruteforceProtection;
 
+/**
+ * Authenticate a dog user.
+ * @author gizmore
+ */
 final class Login extends DOG_Command
 {
+    use WithBruteforceProtection;
+    
     public $priority = 10;
     
-    public $group = 'Auth';
     public $trigger = 'login';
     
     public function isRoomMethod() { return false; }
     
-    private $attempts = [];
-    
-    public function getConfigBot()
-    {
-        return array(
-            GDT_Duration::make('timeout')->initial('10'),
-        );
-    }
-    
-    public function getTimeout()
-    {
-        return $this->getConfigValueBot('timeout');
-    }
-    
     public function gdoParameters()
     {
-        return array(
+        return [
             GDT_Password::make('password')->notNull(),
-        );
+        ];
     }
     
     public function dogExecute(DOG_Message $message, $password)
@@ -52,16 +42,10 @@ final class Login extends DOG_Command
             return $message->rply('err_already_authed');
         }
         
-        $time = Application::$MICROTIME;
-        $last = isset($this->attempts[$dog_user->getID()]) ? $this->attempts[$dog_user->getID()] : 0;
-        $wait = $time - $last;
-        $minwait = $this->getTimeout();
-        if ($wait < $minwait)
+        if ($this->isBruteforcing($message))
         {
-            $wait = $minwait - $wait;
-            return $message->rply('err_login_blocked', [$wait]);
+            return false;
         }
-        
         
         if ($gdo_user->getValue('user_password')->validate($password))
         {
@@ -70,7 +54,6 @@ final class Login extends DOG_Command
         }
         else
         {
-            $this->attempts[$dog_user->getID()] = $time;
             $message->rply('err_dog_authenticate');
         }
     }

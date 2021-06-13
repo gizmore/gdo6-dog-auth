@@ -14,7 +14,6 @@ use GDO\Util\Arrays;
 final class Revoke extends DOG_Command
 {
     public $priority = 40;
-    public $group = 'Auth';
     public $trigger = 'revoke';
     
     public function gdoParameters()

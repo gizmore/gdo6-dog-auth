@@ -5,21 +5,29 @@ use GDO\Dog\DOG_Command;
 use GDO\Dog\DOG_Message;
 use GDO\User\GDT_Password;
 use GDO\Util\BCrypt;
+use GDO\Dog\WithBruteforceProtection;
 
+/**
+ * Register a dog user or change your password.
+ * @author gizmore
+ * @version 6.10.4
+ * @since 6.10.0
+ */
 final class Register extends DOG_Command
 {
+    use WithBruteforceProtection;
+    
     public $priority = 20;
-    public $group = 'Auth';
     public $trigger = 'register';
     
     public function isRoomMethod() { return false; }
     
     public function gdoParameters()
     {
-        return array(
+        return [
             GDT_Password::make('password')->notNull(),
-            GDT_Password::make('new_password'),
-        );
+            GDT_Password::make('new_password')->label('new_password'),
+        ];
     }
     
     public function dogExecute(DOG_Message $message, $password, $newPassword)
@@ -49,8 +57,6 @@ final class Register extends DOG_Command
             $dog_user->login();
             return $message->rply('msg_dog_registered');
         }
-        
-        
     }
     
 }

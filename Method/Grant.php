@@ -13,7 +13,7 @@ use GDO\User\GDO_UserPermission;
 final class Grant extends DOG_Command
 {
     public $priority = 30;
-    public $group = 'Auth';
+    public $group = '';
     public $trigger = 'grant';
     
     public function gdoParameters()
