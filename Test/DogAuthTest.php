@@ -16,22 +16,16 @@ final class DogAuthTest extends DogTestCase
         assertStringContainsString('You have been registered', $r);
     }
     
-    public function testLogout()
-    {
-        $r = $this->bashCommand("logout");
-        assertStringContainsString('You are now logged out.', $r);
-    }
-    
     public function testChangePassword()
     {
         $r = $this->bashCommand("register --new_password=22222222 11111111");
         assertStringContainsString('Your password has been changed successfully.', $r);
     }
     
-    public function testLogin()
+    public function testLogout()
     {
-        $r = $this->bashCommand("login 22222222");
-        assertStringContainsString('You are now authenticated', $r);
+        $r = $this->bashCommand("logout");
+        assertStringContainsString('You are now logged out.', $r);
     }
     
 }
