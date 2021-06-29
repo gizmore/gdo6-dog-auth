@@ -1,7 +1,7 @@
 <?php
 namespace GDO\DogAuth\Test;
 
-use GDO\Dog\DogTestCase;
+use GDO\Dog\Test\DogTestCase;
 use function PHPUnit\Framework\assertStringContainsString;
 
 /**
