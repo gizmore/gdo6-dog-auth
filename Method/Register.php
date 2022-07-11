@@ -3,8 +3,8 @@ namespace GDO\DogAuth\Method;
 
 use GDO\Dog\DOG_Command;
 use GDO\Dog\DOG_Message;
-use GDO\User\GDT_Password;
-use GDO\Util\BCrypt;
+use GDO\Crypto\GDT_Password;
+use GDO\Crypto\BCrypt;
 use GDO\Dog\WithBruteforceProtection;
 
 /**
@@ -22,7 +22,7 @@ final class Register extends DOG_Command
     
     public function isRoomMethod() { return false; }
     
-    public function gdoParameters()
+    public function gdoParameters() : array
     {
         return [
             GDT_Password::make('password')->notNull(),

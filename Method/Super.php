@@ -24,7 +24,7 @@ final class Super extends DOG_Command
     public $trigger = 'super';
     
     public function isAuthRequired() { return true; }
-    public function isUserRequired() { return true; }
+    public function isUserRequired() : bool { return true; }
     public function isRoomMethod() { return false; }
     
     public function getConfigBot()
@@ -43,7 +43,7 @@ final class Super extends DOG_Command
         );
     }
     
-    public function gdoParameters()
+    public function gdoParameters() : array
     {
         return array(
             GDT_Secret::make('password')->notNull(),

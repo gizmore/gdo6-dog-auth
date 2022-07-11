@@ -16,7 +16,7 @@ final class Grant extends DOG_Command
     public $group = '';
     public $trigger = 'grant';
     
-    public function gdoParameters()
+    public function gdoParameters() : array
     {
         return array(
             GDT_DogUser::make('user')->notNull(),

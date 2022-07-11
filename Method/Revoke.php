@@ -16,7 +16,7 @@ final class Revoke extends DOG_Command
     public $priority = 40;
     public $trigger = 'revoke';
     
-    public function gdoParameters()
+    public function gdoParameters() : array
     {
         return array(
             GDT_DogUser::make('user')->notNull(),
