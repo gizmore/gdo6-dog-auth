@@ -41,7 +41,7 @@ final class Register extends DOG_Command
             {
                 return $message->rply('err_dog_already_registered');
             }
-            elseif (!$gdo_user->getValue('user_password')->validate($password))
+            elseif (!$gdo_user->gdoValue('user_password')->validate($password))
             {
                 return $message->rply('err_dog_wrong_old_password');
             }

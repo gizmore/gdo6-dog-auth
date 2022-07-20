@@ -47,7 +47,7 @@ final class Login extends DOG_Command
             return false;
         }
         
-        if ($gdo_user->getValue('user_password')->validate($password))
+        if ($gdo_user->gdoValue('user_password')->validate($password))
         {
             $dog_user->login();
             $message->rply('msg_dog_authenticated');
