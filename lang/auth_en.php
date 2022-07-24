@@ -7,7 +7,7 @@ return array(
 'err_dog_authenticate' => 'The password was wrong.',
 'msg_dog_authenticated' => 'Welcome back! You are now authenticated.',
     
-'ft_dogauth_super' => 'If you know the super secret password you get granted all permissions on this server.',
+'mt_dogauth_super' => 'If you know the super secret password you get granted all permissions on this server.',
 'err_dog_superword' => 'The password is wrong!',
 'msg_dog_super_granted' => 'You were now granted all permissions on this server.',
 'msg_dog_operator_granted' => 'You were granted operator permissions on this server.',
