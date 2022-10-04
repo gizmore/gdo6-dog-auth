@@ -54,17 +54,17 @@ final class Grant extends DOG_Command
         {
             if (!$message->getGDOUser()->hasPermissionObject($permission))
             {
-                return $message->rply('err_grant_permission', [$permission->displayName()]);
+                return $message->rply('err_grant_permission', [$permission->renderName()]);
             }
             
             if ($user->getGDOUser()->hasPermissionObject($permission))
             {
-                return $message->rply('err_grant_already_permission', [$user->displayFullName(), $permission->displayName()]);
+                return $message->rply('err_grant_already_permission', [$user->displayFullName(), $permission->renderName()]);
             }
             
             GDO_UserPermission::grantPermission($user->getGDOUser(), $permission);
             $user->getGDOUser()->changedPermissions();
-            return $message->rply('msg_dog_granted_permission', [$permission->displayName(), $user->displayFullName()]);
+            return $message->rply('msg_dog_granted_permission', [$permission->renderName(), $user->displayFullName()]);
         }
         
         else # multiple by level
@@ -72,7 +72,7 @@ final class Grant extends DOG_Command
             $level = $permission->getLevel();
             if ($message->getGDOUser()->getLevel() < $level)
             {
-                return $message->rply('err_grant_permission', [$permission->displayName()]);
+                return $message->rply('err_grant_permission', [$permission->renderName()]);
             }
             $permissions = GDO_Permission::table()->allWhere("perm_level IS NOT NULL AND perm_level <= $level", 'perm_level');
             $granted = [];
@@ -82,13 +82,13 @@ final class Grant extends DOG_Command
                 if (!$u->hasPermissionObject($perm))
                 {
                     GDO_UserPermission::grant($u, $perm);
-                    $granted[] = $perm->displayName();
+                    $granted[] = $perm->renderName();
                 }
             }
             
             if (!count($granted))
             {
-                return $message->rply('err_grant_already_permission', [$user->displayFullName(), $permission->displayName()]);
+                return $message->rply('err_grant_already_permission', [$user->displayFullName(), $permission->renderName()]);
             }
             else
             {

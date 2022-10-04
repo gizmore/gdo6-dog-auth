@@ -45,11 +45,11 @@ final class Revoke extends DOG_Command
             {
                 if (!$message->getGDOUser()->hasPermission(Dog::OPERATOR))
                 {
-                    return $message->rply('err_dog_revoke_permission', [t('perm_operator'), $permission->displayName()]);
+                    return $message->rply('err_dog_revoke_permission', [t('perm_operator'), $permission->renderName()]);
                 }
                 GDO_UserPermission::revoke($user->getGDOUser(), $permission);
                 $user->getGDOUser()->changedPermissions();
-                return $message->rply('msg_dog_revoked_permission', [$permission->displayName(), $user->displayFullName()]);
+                return $message->rply('msg_dog_revoked_permission', [$permission->renderName(), $user->displayFullName()]);
             }
         }
         else
@@ -67,7 +67,7 @@ final class Revoke extends DOG_Command
                 if ($user->getGDOUser()->hasPermissionObject($perm))
                 {
                     GDO_UserPermission::revoke($user->getGDOUser(), $perm);
-                    $revoked[] = $perm->displayName();
+                    $revoked[] = $perm->renderName();
                 }
             }
             
