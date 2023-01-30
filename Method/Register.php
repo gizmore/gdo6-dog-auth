@@ -18,7 +18,11 @@ final class Register extends DOG_Command
     use WithBruteforceProtection;
     
     public $priority = 20;
-    public $trigger = 'register';
+    
+    public function getCLITrigger()
+    {
+    	return 'register';
+    }
     
     public function isRoomMethod() { return false; }
     

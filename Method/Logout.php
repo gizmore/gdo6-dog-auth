@@ -10,7 +10,10 @@ use GDO\Dog\DOG_Message;
  */
 final class Logout extends DOG_Command
 {
-    public $trigger = 'logout';
+    public function getCLITrigger()
+    {
+    	return 'logout';
+    }
     
     public function dogExecute(DOG_Message $message)
     {

@@ -13,8 +13,11 @@ use GDO\User\GDO_UserPermission;
 final class Grant extends DOG_Command
 {
     public $priority = 30;
-    public $group = '';
-    public $trigger = 'grant';
+    
+    public function getCLITrigger()
+    {
+    	return 'grant';
+    }
     
     public function gdoParameters() : array
     {

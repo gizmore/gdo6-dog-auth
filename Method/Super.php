@@ -21,7 +21,10 @@ final class Super extends DOG_Command
     
     public $priority = 50;
     
-    public $trigger = 'super';
+    public function getCLITrigger()
+    {
+    	return 'super';
+    }
     
     public function isAuthRequired() { return true; }
     public function isUserRequired() : bool { return true; }

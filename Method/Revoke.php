@@ -14,7 +14,11 @@ use GDO\Util\Arrays;
 final class Revoke extends DOG_Command
 {
     public $priority = 40;
-    public $trigger = 'revoke';
+    
+    public function getCLITrigger()
+    {
+    	return 'revoke';
+    }
     
     public function gdoParameters() : array
     {

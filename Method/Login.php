@@ -16,7 +16,10 @@ final class Login extends DOG_Command
     
     public $priority = 10;
     
-    public $trigger = 'login';
+    public function getCLITrigger()
+    {
+    	return 'login';
+    }
     
     public function isRoomMethod() { return false; }
     
