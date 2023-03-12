@@ -45,19 +45,21 @@ final class Register extends DOG_Command
             {
                 return $message->rply('err_dog_already_registered');
             }
-            elseif (!$gdo_user->gdoValue('user_password')->validate($password))
+            elseif (!$gdo_user->settingValue('Login', 'password')->validate($password))
             {
                 return $message->rply('err_dog_wrong_old_password');
             }
             else
             {
-                $gdo_user->saveVar('user_password', BCrypt::create($newPassword)->__toString());
+            	$hash = BCrypt::create($newPassword)->__toString();
+            	$gdo_user->saveSettingVar('Login', 'password', $hash);
                 return $message->rply('msg_dog_password_changed');
             }
         }
         else
         {
-            $gdo_user->saveVar('user_password', BCrypt::create($password)->__toString());
+        	$hash = BCrypt::create($password)->__toString();
+        	$gdo_user->saveSettingVar('Login', 'password', $hash);
             $dog_user->login();
             return $message->rply('msg_dog_registered');
         }
