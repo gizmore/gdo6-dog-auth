@@ -6,9 +6,9 @@ use GDO\Core\GDO_Module;
 /**
  * Authentication module for the dog chatbot.
  *
- * @author gizmore
  * @version 7.0.2
  * @since 6.2.0
+ * @author gizmore
  */
 final class Module_DogAuth extends GDO_Module
 {
