@@ -23,7 +23,7 @@ final class Super extends DOG_Command
 
 	public $priority = 50;
 
-	public function getCLITrigger()
+	public function getCLITrigger(): string
 	{
 		return 'super';
 	}

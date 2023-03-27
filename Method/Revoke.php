@@ -16,7 +16,7 @@ final class Revoke extends DOG_Command
 
 	public $priority = 40;
 
-	public function getCLITrigger()
+	public function getCLITrigger(): string
 	{
 		return 'revoke';
 	}

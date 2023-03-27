@@ -21,7 +21,7 @@ final class Register extends DOG_Command
 
 	public $priority = 20;
 
-	public function getCLITrigger()
+	public function getCLITrigger(): string
 	{
 		return 'register';
 	}

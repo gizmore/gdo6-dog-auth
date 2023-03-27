@@ -15,7 +15,7 @@ final class Grant extends DOG_Command
 
 	public $priority = 30;
 
-	public function getCLITrigger()
+	public function getCLITrigger(): string
 	{
 		return 'grant';
 	}
@@ -54,8 +54,8 @@ final class Grant extends DOG_Command
 
 	public function grantPermission(DOG_Message $message, DOG_User $user, GDO_Permission $permission)
 	{
-		if ($permission->getLevel() === null) # single without level
-		{
+//		if ($permission->getLevel() === null) # single without level
+//		{
 			if (!$message->getGDOUser()->hasPermissionObject($permission))
 			{
 				return $message->rply('err_grant_permission', [$permission->renderName()]);
@@ -69,27 +69,27 @@ final class Grant extends DOG_Command
 			GDO_UserPermission::grantPermission($user->getGDOUser(), $permission);
 			$user->getGDOUser()->changedPermissions();
 			return $message->rply('msg_dog_granted_permission', [$permission->renderName(), $user->displayFullName()]);
-		}
-
-		else # multiple by level
-		{
-			$level = $permission->getLevel();
-			if ($message->getGDOUser()->getLevel() < $level)
-			{
-				return $message->rply('err_grant_permission', [$permission->renderName()]);
-			}
-			$permissions = GDO_Permission::table()->allWhere("perm_level IS NOT NULL AND perm_level <= $level", 'perm_level');
-			$granted = [];
-			$u = $user->getGDOUser();
-			foreach ($permissions as $perm)
-			{
-				if (!$u->hasPermissionObject($perm))
-				{
-					GDO_UserPermission::grant($u, $perm);
-					$granted[] = $perm->renderName();
-				}
-			}
-
+//		}
+//
+//		else # multiple by level
+//		{
+//			$level = $permission->getLevel();
+//			if ($message->getGDOUser()->getLevel() < $level)
+//			{
+//				return $message->rply('err_grant_permission', [$permission->renderName()]);
+//			}
+//			$permissions = GDO_Permission::table()->allWhere("perm_level IS NOT NULL AND perm_level <= $level", 'perm_level');
+//			$granted = [];
+//			$u = $user->getGDOUser();
+//			foreach ($permissions as $perm)
+//			{
+//				if (!$u->hasPermissionObject($perm))
+//				{
+//					GDO_UserPermission::grant($u, $perm);
+//					$granted[] = $perm->renderName();
+//				}
+//			}
+//
 			if (!count($granted))
 			{
 				return $message->rply('err_grant_already_permission', [$user->displayFullName(), $permission->renderName()]);
@@ -99,7 +99,7 @@ final class Grant extends DOG_Command
 				$u->changedPermissions();
 				return $message->rply('msg_dog_granted_permission', [Arrays::implodeHuman($granted), $user->displayFullName()]);
 			}
-		}
+//		}
 	}
 
 }

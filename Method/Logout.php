@@ -12,7 +12,7 @@ use GDO\Dog\DOG_Message;
 final class Logout extends DOG_Command
 {
 
-	public function getCLITrigger()
+	public function getCLITrigger(): string
 	{
 		return 'logout';
 	}
