@@ -13,7 +13,7 @@ use GDO\Util\Arrays;
 final class Grant extends DOG_Command
 {
 
-	public $priority = 30;
+	public int $priority = 30;
 
 	public function getCLITrigger(): string
 	{

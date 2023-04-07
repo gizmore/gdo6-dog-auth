@@ -14,7 +14,7 @@ use GDO\Util\Arrays;
 final class Revoke extends DOG_Command
 {
 
-	public $priority = 40;
+	public int $priority = 40;
 
 	public function getCLITrigger(): string
 	{

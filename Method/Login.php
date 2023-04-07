@@ -16,7 +16,7 @@ final class Login extends DOG_Command
 
 	use WithBruteforceProtection;
 
-	public $priority = 10;
+	public int $priority = 10;
 
 	public function getCLITrigger(): string
 	{

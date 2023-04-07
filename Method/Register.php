@@ -19,7 +19,7 @@ final class Register extends DOG_Command
 
 	use WithBruteforceProtection;
 
-	public $priority = 20;
+	public int $priority = 20;
 
 	public function getCLITrigger(): string
 	{

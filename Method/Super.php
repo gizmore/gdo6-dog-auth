@@ -21,7 +21,7 @@ final class Super extends DOG_Command
 
 	use WithBruteforceProtection;
 
-	public $priority = 50;
+	public int $priority = 50;
 
 	public function getCLITrigger(): string
 	{
@@ -34,7 +34,7 @@ final class Super extends DOG_Command
 
 	public function isRoomMethod() { return false; }
 
-	public function getConfigServer()
+	public function getConfigServer(): array
 	{
 		return [
 			GDT_Secret::make('super_password'),
@@ -48,7 +48,7 @@ final class Super extends DOG_Command
 		];
 	}
 
-	public function getConfigBot()
+	public function getConfigBot(): array
 	{
 		return [
 			GDT_Duration::make('timeout')->initial('10'),
