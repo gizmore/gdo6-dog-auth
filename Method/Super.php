@@ -66,7 +66,7 @@ final class Super extends DOG_Command
 
 		if ($password === $this->getConfigValueBot('super_admin_password'))
 		{
-			$permissions = [Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR, Dog::OWNER, Dog::ADMIN];
+			$permissions = [Dog::VOICE, Dog::HALFOP, Dog::OPERATOR, Dog::STAFF, Dog::ADMIN];
 			foreach ($permissions as $permission)
 			{
 				GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
@@ -77,7 +77,7 @@ final class Super extends DOG_Command
 
 		elseif ($password === $this->getConfigValueBot('super_password'))
 		{
-			$permissions = [Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR, Dog::OWNER];
+			$permissions = [Dog::VOICE, Dog::HALFOP, Dog::STAFF, Dog::OPERATOR, Dog::ADMIN];
 			foreach ($permissions as $permission)
 			{
 				GDO_UserPermission::grant($message->user->getGDOUser(), $permission);
