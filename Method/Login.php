@@ -23,7 +23,7 @@ final class Login extends DOG_Command
 		return 'login';
 	}
 
-	public function isRoomMethod() { return false; }
+	protected function isRoomMethod(): bool { return false; }
 
 	public function gdoParameters(): array
 	{

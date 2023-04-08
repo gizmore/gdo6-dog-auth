@@ -32,9 +32,9 @@ final class Super extends DOG_Command
 
 	public function isUserRequired(): bool { return true; }
 
-	public function isRoomMethod() { return false; }
+	protected function isRoomMethod(): bool { return false; }
 
-	public function getConfigServer(): array
+	protected function getConfigServer(): array
 	{
 		return [
 			GDT_Secret::make('super_password'),

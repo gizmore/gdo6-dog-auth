@@ -26,7 +26,7 @@ final class Register extends DOG_Command
 		return 'register';
 	}
 
-	public function isRoomMethod() { return false; }
+	protected function isRoomMethod(): bool { return false; }
 
 	public function gdoParameters(): array
 	{
