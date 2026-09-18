@@ -1,0 +1,33 @@
+<?php
+namespace GDO\DogAuth\lang;
+
+return [
+	'dog_help_login' => '#BOT#으로 인증하세요. 먼저 #CMD#등록을 해야 합니다.',
+	'err_not_registered' => '귀하는 이 #BOT#에 등록되어 있지 않습니다. 미리 등록 명령을 활용하십시오.',
+	'err_already_authed' => '귀하는 이미 #BOT#으로 인증되었습니다.',
+	'err_login_blocked' => '다시 시도하기 전에 %.02fs를 기다리십시오.',
+	'err_dog_authenticate' => '비밀번호가 틀렸습니다.',
+	'msg_dog_authenticated' => '돌아온 것을 환영합니다! 이제 인증되었습니다.',
+	'mt_dogauth_super' => '당신이 최고 비밀 비밀번호를 알고 있다면 이 서버에 대한 모든 권한을 부여받게 됩니다.',
+	'err_dog_superword' => '비밀번호가 틀렸어요!',
+	'msg_dog_super_granted' => '이제 이 서버에 대한 모든 권한이 부여되었습니다.',
+	'msg_dog_operator_granted' => '이 서버에 대한 운영자 권한이 부여되었습니다.',
+	'dog_help_register' => '#BOT#에 계정을 등록하세요. 변경하려면 기존 비밀번호와 새 비밀번호를 입력하세요.',
+	'err_dog_already_registered' => '귀하는 이미 등록되어 있습니다. #CMD#register <oldPass> <newPass>로 비밀번호를 변경할 수 있습니다.',
+	'err_dog_wrong_old_password' => '이전 비밀번호가 잘못되었습니다.',
+	'msg_dog_password_changed' => '귀하의 비밀번호가 성공적으로 변경되었습니다.',
+	'msg_dog_registered' => '#BOT#으로 등록 및 인증되었습니다.',
+	'dog_help_grant' => '사용자의 권한을 표시합니다.',
+	'msg_dog_show_permissions' => '%s에는 다음 권한이 있습니다: %s.',
+	'err_dog_grant' => '그렇게 하려면 %s보다 높거나 동일한 권한이 필요합니다.',
+	'err_grant_permission' => '이를 부여하려면 %s 권한이 직접 필요합니다.',
+	'err_grant_already_permission' => '%s에는 이미 %s 권한이 있습니다.',
+	'msg_dog_granted_permission' => '%s 권한을 %s에 부여했습니다.',
+	'dog_help_revoke' => '사용자에 대한 권한 취소',
+	'err_dog_revoke_permission' => '%s 권한을 취소하려면 %s 권한이 필요합니다.',
+	'msg_dog_revoked_permission' => '%s에 대한 %s 권한을 취소했습니다.',
+	'err_dog_revoke_level' => '귀하의 권한은 이러한 권한을 취소할 만큼 높지 않습니다.',
+	'err_revoke_unchanged' => '아무것도 변하지 않았습니다.',
+	'err_dog_not_authenticated' => '#BOT#으로 인증되지 않았습니다.',
+	'msg_dog_logged_out' => '이제 로그아웃되었습니다.',
+];
